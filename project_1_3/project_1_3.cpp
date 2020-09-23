@@ -37,10 +37,33 @@ int main() {
 
   // TODO write your code here
   // =========== START =========
+    std::cout << "x: {" << x[0];
+  for(int i = 1; i < x.size(); i++) {
+    std::cout << ", " << x[i];
+  }
+  std::cout << "}" << std::endl;
+
+  std::cout << "w: {" << w[0];
+  for(int i = 1; i < w.size(); i++) {
+    std::cout << ", " << w[i];
+  }
+  std::cout << "}" << std::endl;
+  int vector_offset = (w.size() - 1) / 2;
+
+  for (int i = 0; i < x.size(); i ++) {
+    int intermediate_convolution = 0;
+    for (int j = 0; j < w.size(); j++) {
+          intermediate_convolution += w[j] * x[i - vector_offset + j];
+      }
+          y.push_back(intermediate_convolution);
+    }
 
 
-
-
+  std::cout << "y: {" << y[0];
+  for(int i = 1; i < y.size(); i++) {
+    std::cout << ", " << y[i];
+  }
+  std::cout << "}" << std::endl;
   // =========== END ===========
 
   return 0;
