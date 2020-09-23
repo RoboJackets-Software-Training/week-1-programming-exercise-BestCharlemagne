@@ -53,10 +53,19 @@ int main() {
   for (int i = 0; i < x.size(); i ++) {
     int intermediate_convolution = 0;
     for (int j = 0; j < w.size(); j++) {
-          intermediate_convolution += w[j] * x[i - vector_offset + j];
+      int vector_multiplier = x[i - vector_offset + j];
+      if (!pack_with_zeros) {
+        if (i - vector_offset + j < 0) {
+          vector_multiplier = x[0];
+        } else if (i - vector_offset + j > x.size() - 1) {
+          vector_multiplier = x[x.size() - 1];
+        }
       }
-          y.push_back(intermediate_convolution);
+
+      intermediate_convolution += w[j] * vector_multiplier;
     }
+      y.push_back(intermediate_convolution);
+  }
 
 
   std::cout << "{" << y[0];
